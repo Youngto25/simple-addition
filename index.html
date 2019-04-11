@@ -1,0 +1,47 @@
+<title>首页</title>
+<link rel="stylesheet" href="./style.css">
+
+<h5>您的账户余额是<span id="acount">Blake_Yang</span></h5>
+<button id="button">Pay</button>
+<script>
+    button.addEventListener('click',()=>{
+        let script = document.createElement('script')
+        document.body.appendChild(script)
+        script.src = '/pay'
+        //消除新建script的影响
+        script.onload = function (e){
+            e.currentTarget.remove()
+        }
+        /*
+        script.onload = function (){
+            alert('成功')
+            //局部变化
+            acount.innerText = acount.innerText - 1
+            //window.location.reload()刷新页面
+        }
+        */
+        script.onerror = function (e){
+            alert('失败')
+            e.currentTarget.remove()
+        }
+    })
+    
+    
+    
+    
+    /*
+    button.addEventListener('click',()=>{
+        let image = document.createElement('img')
+        image.src = '/pay'
+        image.onload = function (){
+            alert('成功')
+            //局部变化
+            acount.innerText = acount.innerText - 1
+            //window.location.reload()刷新页面
+        }
+        image.onerror = function (){
+            alert('失败')
+        }
+    })
+    */
+</script>
