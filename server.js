@@ -1,8 +1,17 @@
 var http = require('http')
 var fs = require('fs')
 var url = require('url')
-var port = process.argv[2]
+//var port = process.argv[2]
+var port = process.env.PORT || 8888;
 
+var server = http.createServer(function(request,response){
+  var temp = url.parse(request.url,true)
+  var path = temp.pathname
+  var query = temp.query
+  var method = request.method
+
+
+/*
 if(!port){
   console.log('��ָ���˿ںźò�����\nnode server.js 8888 ����������')
   process.exit(1)
@@ -16,10 +25,11 @@ var server = http.createServer(function(request, response){
   var path = parsedUrl.pathname
   var query = parsedUrl.query
   var method = request.method
+  */
 
-  /******** �����￪ʼ�������治Ҫ�� ************/
+  /******** �������������� ************/
 
-  console.log('����˵������ѯ�ַ�����·��\n' + pathWithQuery)
+ // console.log('����˵������ѯ�ַ�����·��\n' + pathWithQuery)
 
   if(path === '/'){
     var string = fs.readFileSync('./index.html','utf8')
@@ -49,8 +59,9 @@ var server = http.createServer(function(request, response){
     //response.setHeader('Content-Type','image/jpg')
     response.statusCode = 200
     response.write(`
-      alert("script在执行")
-      acount.innerText = acount.innerText - 1`)
+      ${query.callback}.call(undefined,'success')`
+    )
+
     //此处为img上传内容
     //response.write(fs.readFileSync('./2.jpg'))
     /*
@@ -72,7 +83,7 @@ var server = http.createServer(function(request, response){
     response.end()
   }
 
-  /******** ������������治Ҫ�� ************/
+  /******** �������������� ************/
 })
 
 server.listen(port)

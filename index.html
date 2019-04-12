@@ -4,13 +4,31 @@
 <h5>您的账户余额是<span id="acount">Blake_Yang</span></h5>
 <button id="button">Pay</button>
 <script>
+    /*
+    window.callback = function (result){
+        if(result == 'success'){
+            acount.innerText = acount.innerText - 1
+        }else{
+
+        }    
+    }
+    */
     button.addEventListener('click',()=>{
         let script = document.createElement('script')
         document.body.appendChild(script)
-        script.src = '/pay'
+        let functionName = 'black'+parseInt(Math.random()*100000,10)
+        window[functionName] = function (result){
+            if(result == 'success'){
+                acount.innerText = acount.innerText - 1
+            }else{
+
+            }   
+        }
+        script.src = 'http://localhost:8002/pay?callback='+functionName
         //消除新建script的影响
         script.onload = function (e){
             e.currentTarget.remove()
+            delete window[functionName]
         }
         /*
         script.onload = function (){
@@ -23,6 +41,7 @@
         script.onerror = function (e){
             alert('失败')
             e.currentTarget.remove()
+            delete window[functionName]
         }
     })
     
