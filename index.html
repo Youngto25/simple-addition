@@ -24,7 +24,8 @@
 
             }   
         }
-        script.src = 'http://localhost:8002/pay?callback='+functionName
+        console.log(window[functionName]);
+        script.src = 'http://localhost:8001/pay?callback='+functionName
         //消除新建script的影响
         script.onload = function (e){
             e.currentTarget.remove()
